@@ -1,0 +1,21 @@
+nama = 'Bayu Setia'
+nim = 5220411240
+
+# CARA MENCARI NOMOR HP YANG BERAWAL DARI +62
+no_hp = '+6281532305715'
+if no_hp.startswith('+62'):
+    print('nomor hp indonesia')
+
+#CARA MENCARI GMAIL DARI KUMPULAN EMAIL
+gmail = 'bayu@gmail.com'
+if gmail.endswith('gmail.com'):
+    print('ini gmail')
+
+list1 = ['bayu','sangat','setia','kyahhh']
+for i in list1 :
+    print (i)
+
+
+#CARA MENGUBAH EKSTENSI FILE PHP MENJADI PY
+# bhs = ['satu.py','dua.php']
+# for item in bhs
