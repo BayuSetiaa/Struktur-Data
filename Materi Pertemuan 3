@@ -1,0 +1,74 @@
+# list1 = [1,2,3,4]
+# print(list1[0])
+# print(list1[1])
+# print(list1[2])
+# print(list1[3])
+# print(30*'=')
+# print('''
+# nama sya bayu sangat setia gamerrs ganteng idaman
+# fagg pencitraan nakjal tapi tanpa di youtup ngomon gf ay iy atr
+# 1
+# 2
+# 23
+# 34
+# ''')
+# print(30*'=')
+
+# tuple1 = ('bayu','sangat','setia')
+# print(tuple1)
+# print()
+# print(tuple1[0])
+# print(tuple1[1])
+# print(tuple1[2])
+# print()
+# print(len(tuple1))
+# print()
+
+# tuple2 = ('gamers',)
+# print(tuple2)
+# print()
+
+# tuple3 = ('gamers')
+# print(tuple3)
+
+
+# set1 = {1,2,3}
+# print(set1)
+# print()
+
+# set2 = {1.2,'bayu',(1,2,3)}
+# print(set2)
+# print()
+
+# set3 = set(('bayu','sangat','setia')) # hal penting
+# print(set3)
+
+# catatan = data yang gak bisa diubah adalah tuple
+# list dan tupple = memiliki index atau terstruktur
+# set dan dictionary = tdk memiliki index atau tdk terstruktur
+
+# buku = {
+#     'judul':'gamers ganteng idaman',
+#     'halaman': 3000000
+# }
+# print('cara pertama mengakses value di dictionary')
+# print(buku['judul'])
+# print(buku['halaman'])
+# print()
+# print('cara kedua mengakses value di dictionary')
+# print(buku.get('judul'))
+# print(buku.get('halaman'))
+
+buku1 = {
+    'indonesia':{
+        'judul':'Bayu Sangat Setia',
+        'halaman':5000000
+    },
+    'inggris':{
+        'judul' : "aku kaya",
+        "halaman":4000000
+    }
+}
+
+print(buku1['indonesia']['judul'])
+
