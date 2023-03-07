@@ -1,0 +1,18 @@
+class Spidol():
+    def __init__(self,panjang,warna):
+        self.panjang = panjang
+        self.warna = warna
+        
+    def set_panjang(self,panjang):
+        self.panjang = panjang
+    def set_warna(self,warna):
+        self.warna = warna
+        
+    def get_panjang(self):
+        return self.panjang
+    def get_warna(self):
+        return self.warna
+    
+spidol1 = Spidol(5,'merah')
+
+print(spidol1.get_panjang())
