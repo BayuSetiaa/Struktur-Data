@@ -1,0 +1,7 @@
+if __name__=='__main__':
+
+ex:
+if __name__=='__main__':
+    pp = Persegi_panjang(5,7)
+    print(pp.luas())
+    
