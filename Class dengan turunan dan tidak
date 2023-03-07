@@ -1,0 +1,40 @@
+class RuasBangun(object):
+    def __init__(self,panjang,lebar):
+        self.panjang = panjang
+        self.lebar = lebar
+        
+    def set_panjang(self,panjang):
+        self.panjang = panjang
+    def set_lebar(self,lebar):
+        self.lebar
+        
+    def get_panjang(self):
+        return self.panjang
+    def get_lebar(self):
+        return self.lebar
+    
+class Persegi_panjang(RuasBangun):
+    def __init__(self, panjang, lebar):
+        RuasBangun.__init__(self,panjang,lebar)
+    
+    def luas(self):
+        return RuasBangun.get_panjang(self)*RuasBangun.get_lebar(self)
+    
+
+    
+class Lingkaran(RuasBangun):
+    def __init__(self,r):
+        self.r = r
+        
+    def set_r(self,r):
+        self.r = r
+    def get_r(self):
+        return self.r
+    def luas(self):
+        return 3.14*(self.get_r()**2)
+    
+if __name__=='__main__':
+    pp = Persegi_panjang(5,7)
+    ling = Lingkaran(10)
+    print(pp.luas())
+    print(ling.luas())
