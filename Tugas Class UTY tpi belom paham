@@ -1,0 +1,136 @@
+import os
+os.system("cls")
+
+class RuasBangun(object):
+    def __init__(self,panjang,lebar,rusuk,tinggi):
+        self.panjang = panjang
+        self.lebar = lebar
+        self.rusuk = rusuk
+        self.tinggi = tinggi
+        
+    def set_panjang(self,panjang):
+        self.panjang = panjang
+    def set_lebar(self,lebar):
+        self.lebar = lebar
+    def set_rusuk(self,rusuk):
+        self.rusuk = rusuk
+    def set_tinggi(self,tinggi):
+        self.rusuk = tinggi
+        
+    def get_panjang(self):
+        return self.panjang
+    def get_lebar(self):
+        return self.lebar
+    def get_rusuk(self):
+        return self.rusuk
+    def get_tinggi(self):
+        return self.tinggi
+    
+class Kubus(RuasBangun):
+    def __init__(self,panjang,lebar,rusuk,tinggi):
+        RuasBangun.__init__(self,panjang,lebar,rusuk,tinggi)
+    
+    def luas(self):
+        return RuasBangun.get_rusuk(self)*RuasBangun.get_rusuk(self)*6
+    
+    def volume(self):
+        return RuasBangun.get_rusuk(self) ** 3
+    
+class Balok(RuasBangun):
+    def __init__(self,panjang,lebar,rusuk,tinggi):
+        RuasBangun.__init__(self,panjang,lebar,rusuk,tinggi)
+    
+    def luasPermukaan(self):
+        return (RuasBangun.get_panjang(self)*RuasBangun.get_lebar(self)+RuasBangun.get_panjang(self)*RuasBangun.get_tinggi(self)+RuasBangun.get_lebar(self)*RuasBangun.get_tinggi(self))*2
+    
+    def Volume2(self):
+        return RuasBangun.get_panjang(self)*RuasBangun.get_lebar(self)*RuasBangun.get_tinggi(self)
+    
+class PrismaSegitiga(RuasBangun):
+    def __init__(self,a,t,s,tinggi):
+        RuasBangun.__init__(self,0,0,0,tinggi)
+        self.a = a
+        self.t = t
+        self.s = s
+        self.tinggi = tinggi
+        
+    def set_a(self,a):
+        self.a = a
+    def set_t(self,t):
+        self.t = t
+    def set_s(self,s):
+        self.s = s
+    def set_tinggiP(self,tinggi):
+        self.tinggi = tinggi
+        
+    def get_a(self):
+        return self.a 
+    def get_t(self):
+        return self.t
+    def get_s(self):
+        return self.s
+    def get_tinggi(self):
+        return self.tinggi
+        
+    def LuasPermukaan2(self):
+        return (self.get_a()*self.get_t())+(self.get_s()*3*2*self.get_t())
+
+    def Volume3(self):
+        return (self.get_a()*self.get_t()/2)*self.get_tinggi()
+        
+    
+    
+while True:
+    print()
+    print('_________MENU__________' )
+    print('1. LUAS PERMUKAAN KUBUS')
+    print('2. VOLUME KUBUS'        )
+    print('3. LUAS PERMUKAAN BALOK')
+    print('4. VOLUME BALOK'        )
+    print('5. LUAS PERMUKAAN PRISMA SEGITIGA')
+    print('6. VOLUME PRISMA SEGITIGA')
+    print('0. EXIT')
+    print()
+    pilih = int(input('MASUKAN PILIHAN ANDA = '))
+    
+    if pilih == 1:
+        angka1 = int(input("Masukan Panjang Rusuk = "))
+        K = Kubus(0,0,angka1,0)
+        print(f"Hasil Luasnya Adalah = {K.luas()}")
+
+    elif pilih == 2:
+        angka1 = int(input("Masukan Panjang Rusuk = "))
+        K = Kubus(0,0,angka1,0)
+        print(f"Hasil Volumenya Adalah = {K.volume()}")
+    
+    elif pilih == 3:
+        angka1 = int(input("Masukan Panjang Balok = "))
+        angka2 = int(input("Masukan Lebar Balok   = "))
+        angka3 = int(input("Masukan Tinggi Balok  = "))
+        BL = Balok(angka1,angka2,0,angka3)
+        print(f'Luas Permukaan Baloknya Adalah = {BL.luasPermukaan()}')
+
+    elif pilih == 4:
+        angka1 = int(input("Masukan Panjang Balok = "))
+        angka2 = int(input("Masukan Lebar Balok   = "))
+        angka3 = int(input("Masukan Tinggi Balok  = "))
+        BV = Balok(angka1,angka2,0,angka3)
+        print(f'Luas Volume Baloknya Adalah = {BL.Volume2()}')
+
+    elif pilih == 5:
+        angka1 = int(input("Masukan Alas Prisma   = "))
+        angka2 = int(input("Masukan Tinggi Prisma = "))
+        angka3 = int(input("Masukan Sisi Prisma   = "))
+        LP = PrismaSegitiga(angka1,angka2,angka3,0)
+        print(f'Luas Permukaan Prisma Segitiganya Adalah = {LP.LuasPermukaan2()}')
+
+    elif pilih == 6:
+        angka1 = int(input("Masukan Alas Prisma     = "))
+        angka2 = int(input("Masukan Tinggi segitiga kecil Prisma   = "))
+        angka3 = int(input("Masukan Tinggi Prisma   = "))
+        VP = PrismaSegitiga(angka1,angka2,0,angka3)
+        print(f'Luas Volume Prisma Segitiganya Adalah = {VP.Volume3()}')
+
+    elif pilih == 0:
+        exit()
+
