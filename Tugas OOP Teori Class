@@ -1,0 +1,84 @@
+import os
+os.system('cls')
+class smartPhone():
+    def __init__(self,baterai,warna,ram):                                        
+        self._baterai = baterai
+        self._warna = warna
+        self._ram = ram
+        
+    def set_baterai(self,baterai):
+        self._baterai = baterai
+    def set_baterai(self,warna):
+        self._warna = warna
+    def set_baterai(self,ram):
+        self._ram = ram
+        
+    def get_baterai(self):
+        return self._baterai
+    def get_warna(self):
+        return self._warna
+    def get_ram(self):
+        return self._ram
+        
+        
+class Iphone(smartPhone):
+    def __init__(self,baterai,warna ,ram):
+        smartPhone.__init__(self,baterai,warna,ram)
+        
+    def Pilihan(self):
+        return print(f'id = {id(self.get_baterai)} ,Ukuran Baterai = {smartPhone.get_baterai(self)}, Warna Hp = {smartPhone.get_warna(self)}, Ram = {smartPhone.get_ram(self)}')
+        
+class Samsung(smartPhone):
+    def __init__(self,baterai,warna ,ram):
+        smartPhone.__init__(self,baterai,warna,ram)
+        
+    def Pilihan(self):
+        return print(f'id = {id(self.get_baterai)} ,Ukuran Baterai = {smartPhone.get_baterai(self)}, Warna Hp = {smartPhone.get_warna(self)}, Ram = {smartPhone.get_ram(self)}')
+
+class Xiomi(smartPhone):
+    def __init__(self,baterai,warna ,ram):
+        smartPhone.__init__(self,baterai,warna,ram)
+        
+    def Pilihan(self):
+        return print(f'id = {id(self.get_baterai)} ,Ukuran Baterai = {smartPhone.get_baterai(self)}, Warna Hp = {smartPhone.get_warna(self)}, Ram = {smartPhone.get_ram(self)}')
+        
+
+def menu():
+    print('_______MENU______')
+    print('____PILIHAN HP___')
+    print('  1. IPHONE       ')
+    print('  2. SAMSUNG      ')
+    print('  3. XIOMI        ')
+    print('  4. EXIT         ')
+    
+while True:
+    menu()
+    print()
+    pilihan = int(input('Pilih Merek SmartPhone = '))
+    
+    if pilihan == 1:
+        pilih1 = str(input('Pilih Ukuran Baterai = '))
+        pilih2 = str(input('Pilih Warna Hp =  '))
+        pilih3 = int(input('Pilih Ram yang di inginkan =  '))
+        I = Iphone(pilih1,pilih2,pilih3)
+        print(I.Pilihan())
+        
+    elif pilihan == 2:
+        pilih1 = str(input('Pilih Ukuran Baterai = '))
+        pilih2 = str(input('Pilih Warna Hp =  '))
+        pilih3 = int(input('Pilih Ram yang di inginkan =  '))
+        I = Samsung(pilih1,pilih2,pilih3)
+        print(I.Pilihan())
+        
+    elif pilihan == 3:
+        pilih1 = str(input('Pilih Ukuran Baterai = '))
+        pilih2 = str(input('Pilih Warna Hp =  '))
+        pilih3 = int(input('Pilih Ram yang di inginkan =  '))
+        I = Xiomi(pilih1,pilih2,pilih3)
+        print(I.Pilihan())
+    
+    elif pilihan == 4:
+        exit()
+        
+    else:
+        print('MAAF PILIHAN ANDA TIDAK TERSEDIA')
