@@ -1,0 +1,70 @@
+class Node:
+    def __init__(self,isi):
+        self.isi = isi
+        self.next = None
+        
+class LinkedList:
+    def __init__(self,isi):
+        new_node = Node(isi)
+        self.head = new_node
+        self.tail = new_node
+        self.length = 1
+            
+    def append(self,isi):
+        new_node = Node(isi)
+        if self.length == 0:
+            self.head = new_node
+            self.tail = new_node
+        else:
+            self.tail.next = new_node
+            self.tail = new_node
+        self.length += 1
+        return True
+    
+    def min(self):
+        minimum = self.head.isi
+        current = self.head
+        while current is not None:
+            if current.isi < minimum:
+                minimum = current.isi
+            current = current.next
+        return minimum
+ 
+print('Soal No. 1 Genap') 
+if __name__ == "__main__":
+    ll = LinkedList(3)
+    ll.append(10)
+    ll.append(7)
+    ll.append(8)
+    print(f'Nilai Minimumnya Adalah = {ll.min()}')
+    
+class LinkedList:
+    def __init__(self,data):
+        self.data = data
+        self.next = None
+    
+    def append_list(self, new_list):
+        for x in new_list:
+            new_node = LinkedList(x)
+            current = self
+            while current.next != None:
+                current = current.next
+            current.next = new_node
+
+    def print_list(self):
+        current = self
+        while current != None:
+            print(current.data)
+            current = current.next
+
+print()   
+print('Soal No.3 Ganjil & Genap')
+print('Datanya :')
+
+if __name__ == "__main__":
+    ll = LinkedList(3)
+    ll.append_list([2,4,8,4,6])
+    ll.print_list()    
+
+    
+            
