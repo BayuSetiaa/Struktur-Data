@@ -1,0 +1,118 @@
+class Graph:
+    def __init__(self):
+        self.adj_list = {}
+        
+    def print_graph(self):
+        for vertex in self.adj_list:
+            print(vertex,':', self.adj_list[vertex])
+            
+    def add_vertex(self, vertex):
+        if vertex not in self.adj_list.keys():
+            self.adj_list[vertex] = []
+            return True
+        return False
+    
+    def avoidDuplicateAppend(self,lisTarget,value):
+        if (value not in  lisTarget):
+            lisTarget.append(value)
+            return True
+        return False
+    
+    def add_edge(self, v1 , v2 ):
+        if v1 in self.adj_list.keys() and v2 in self.adj_list.keys():
+            self.avoidDuplicateAppend(self.adj_list[v1],v2)
+            self.avoidDuplicateAppend(self.adj_list[v2],v1)
+            return True
+        return False
+    
+    def remove_edge(self, v1 , v2 ):
+        if v1 in self.adj_list.keys() and v2 in self.adj_list.keys():
+            try : 
+                self.adj_list[v1].remove(v2)
+                self.adj_list[v2].remove(v1)
+            except ValueError :
+                pass
+            return True
+        return False
+    
+    def remove_vertex(self,vertex):
+        if vertex in self.adj_list.keys():
+            for other_vertex in self.adj_list[vertex]:
+                self.adj_list[other_vertex].remove(vertex)
+            del self.adj_list[vertex]
+            return True
+        return False
+    
+    def isInGraph(self,vertex):
+        if (vertex in self.adj_list.keys()): return True
+        else:return False 
+
+    def printAllconnected(self,vertex):
+        if(self.adj_list == {}):return False
+        print(f'Data In {vertex} Vertex ---> ', end='')
+        for data in self.adj_list[vertex]:
+            print(data,end=',' if data != self.adj_list[vertex][-1]else'')
+            print(''); return True
+        
+
+# my_graph = Graph()
+# my_graph.add_vertex('A')
+# my_graph.add_vertex('B')
+# my_graph.add_vertex('C')
+# my_graph.add_vertex('D')
+
+# my_graph.add_edge('A','B')
+# my_graph.add_edge('A','C')
+# my_graph.add_edge('B','D')
+# my_graph.add_edge('C','D')
+
+# print('Graph before remove_vertex() : ')
+# my_graph.print_graph()
+
+# my_graph.remove_vertex('D')
+
+# print('\nGraph after remove_vertex(): ')
+# my_graph.print_graph()
+
+if __name__ == '__main__':
+    print(30*'=')
+    myGraph = Graph()
+    listVertex = [21,76,44,18,52,27,82]
+    listVertex = [str(data)for data in listVertex]
+    for vertex in listVertex : myGraph.add_vertex(vertex)
+
+
+    # 21 Vertex 
+    myGraph.add_edge(listVertex[0], listVertex [1])
+    myGraph.add_edge(listVertex[0], listVertex [2])
+    myGraph.add_edge(listVertex[0], listVertex [3])
+    
+    # 76 Vertex 
+    myGraph.add_edge(listVertex[1], listVertex [1])
+    myGraph.add_edge(listVertex[1], listVertex [0])
+    myGraph.add_edge(listVertex[1], listVertex [2])
+    
+    # 44 vertex
+    myGraph.add_edge(listVertex[2], listVertex [1])
+    myGraph.add_edge(listVertex[2], listVertex [0])
+    myGraph.add_edge(listVertex[2], listVertex [3])
+    
+    # 18 Vertex 
+    myGraph.add_edge(listVertex[3], listVertex [0])
+    myGraph.add_edge(listVertex[3], listVertex [2])
+    myGraph.add_edge(listVertex[3], listVertex [4])
+    
+    # 52 Vertex 
+    myGraph.add_edge(listVertex[4], listVertex [3])
+    myGraph.add_edge(listVertex[4], listVertex [5])
+
+    # 27 vertex
+    myGraph.add_edge(listVertex[5], listVertex [4])
+    myGraph.add_edge(listVertex[5], listVertex [6])
+
+    # 82 Vertex
+    myGraph.add_edge(listVertex[6], listVertex [5])
+    myGraph.print_graph()
+
+    myGraph.printAllconnected(listVertex[0])
+
