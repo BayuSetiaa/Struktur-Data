@@ -1,0 +1,179 @@
+class Barang:
+    def __init__(self, sku, nama, harga, stok):
+        self.sku = sku
+        self.nama = nama
+        self.harga = harga
+        self.stok = stok
+
+class Transaksi:
+    def __init__(self, konsumen, sku, jumlah_beli, subtotal):
+        self.konsumen = konsumen
+        self.sku = sku
+        self.jumlah_beli = jumlah_beli
+        self.subtotal = subtotal
+
+class BinarySearchTree:
+    def __init__(self):
+        self.root = None
+
+    def insert(self, barang):
+        if self.root is None:
+            self.root = barang
+        else:
+            self._insert_recursive(self.root, barang)
+
+    def _insert_recursive(self, curr_node, barang):
+        if barang.sku < curr_node.sku:
+            if curr_node.left is None:
+                curr_node.left = barang
+            else:
+                self._insert_recursive(curr_node.left, barang)
+        elif barang.sku > curr_node.sku:
+            if curr_node.right is None:
+                curr_node.right = barang
+            else:
+                self._insert_recursive(curr_node.right, barang)
+
+    def search(self, sku):
+        return self._search_recursive(self.root, sku)
+
+    def _search_recursive(self, curr_node, sku):
+        if curr_node is None or curr_node.sku == sku:
+            return curr_node
+        elif sku < curr_node.sku:
+            return self._search_recursive(curr_node.left, sku)
+        else:
+            return self._search_recursive(curr_node.right, sku)
+
+class ProgramRetail:
+    def __init__(self):
+        self.stok_barang = BinarySearchTree()
+        self.transaksi_konsumen = []
+
+    def main_menu(self):
+        while True:
+            print("\n===== MENU UTAMA =====")
+            print("1) Kelola Stok Barang")
+            print("2) Kelola Transaksi Konsumen")
+            print("0) Exit Program")
+
+            choice = input("Pilih menu: ")
+            if choice == "1":
+                self.menu_kelola_stok_barang()
+            elif choice == "2":
+                self.menu_kelola_transaksi_konsumen()
+            elif choice == "0":
+                break
+            else:
+                print("Pilihan tidak valid!")
+
+    def menu_kelola_stok_barang(self):
+        while True:
+            print("\n===== SUB MENU KELOLA STOK BARANG =====")
+            print("1.1) Input Data Stok Barang")
+            print("1.2) Restok Barang")
+            print("0) Kembali ke MENU UTAMA")
+
+            choice = input("Pilih sub menu: ")
+            if choice == "1.1":
+                self.input_data_stok_barang()
+            elif choice == "1.2":
+                self.restok_barang()
+            elif choice == "0":
+                break
+            else:
+                print("Pilihan tidak valid!")
+
+    def menu_kelola_transaksi_konsumen(self):
+        while True:
+            print("\n===== SUB MENU KELOLA TRANSAKSI KONSUMEN =====")
+            print("2.1) Input Data Transaksi Baru")
+            print("2.2) Lihat Data Seluruh Transaksi Konsumen")
+            print("2.3) Lihat Data Transaksi Berdasarkan Subtotal")
+            print("0) Kembali ke MENU UTAMA")
+
+            choice = input("Pilih sub menu: ")
+            if choice == "2.1":
+                self.input_data_transaksi()
+            elif choice == "2.2":
+                self.lihat_data_seluruh_transaksi()
+            elif choice == "2.3":
+                self.lihat_data_transaksi_berdasarkan_subtotal()
+            elif choice == "0":
+                break
+            else:
+                print("Pilihan tidak valid!")
+
+    def input_data_stok_barang(self):
+        sku = input("Masukkan No. SKU: ")
+        nama = input("Masukkan Nama Barang: ")
+        harga = float(input("Masukkan Harga Satuan: "))
+        stok = int(input("Masukkan Jumlah Stok: "))
+
+        barang = Barang(sku, nama, harga, stok)
+        if self.stok_barang.search(sku) is not None:
+            print("No. SKU sudah tersimpan di dalam BST.")
+        else:
+            self.stok_barang.insert(barang)
+            print("Data stok barang berhasil disimpan.")
+
+    def restok_barang(self):
+        sku = input("Masukkan No. SKU barang yang akan diupdate: ")
+        barang = self.stok_barang.search(sku)
+        if barang is None:
+            print("No. SKU belum tersimpan di dalam BST. Lakukan input data stok barang terlebih dahulu.")
+        else:
+            jumlah_baru = int(input("Masukkan jumlah stok baru yang akan ditambahkan: "))
+            total_stok = barang.stok + jumlah_baru
+            barang.stok = total_stok
+            print("Stok barang berhasil diupdate.")
+
+    def input_data_transaksi(self):
+        konsumen = input("Masukkan Nama Konsumen: ")
+        sku = input("Masukkan No. SKU barang yang dibeli: ")
+        barang = self.stok_barang.search(sku)
+        if barang is None:
+            pilihan = input("No. SKU yang diinputkan belum terdaftar. Apakah ingin melanjutkan transaksi (Y/N)? ")
+            if pilihan == "Y" or pilihan == "y":
+                self.input_data_transaksi()
+            else:
+                print("Transaksi dibatalkan.")
+                return
+
+        jumlah_beli = int(input("Masukkan jumlah barang yang dibeli: "))
+        if barang.stok >= jumlah_beli:
+            subtotal = barang.harga * jumlah_beli
+            barang.stok -= jumlah_beli
+            transaksi = Transaksi(konsumen, sku, jumlah_beli, subtotal)
+            self.transaksi_konsumen.append(transaksi)
+            print("Data transaksi konsumen berhasil diinputkan.")
+            pilihan = input("Apakah ingin menambahkan data pembelian untuk konsumen ini (Y/N)? ")
+            if pilihan == "Y" or pilihan == "y":
+                self.input_data_transaksi()
+        else:
+            pilihan = input("Jumlah Stok No. SKU yang Anda beli tidak mencukupi. Apakah ingin melanjutkan transaksi (Y/N)? ")
+            if pilihan == "Y" or pilihan == "y":
+                self.input_data_transaksi()
+
+    def lihat_data_seluruh_transaksi(self):
+        print("\n===== DATA SELURUH TRANSAKSI KONSUMEN =====")
+        for transaksi in self.transaksi_konsumen:
+            print("Nama Konsumen:", transaksi.konsumen)
+            print("No. SKU Barang:", transaksi.sku)
+            print("Jumlah Beli:", transaksi.jumlah_beli)
+            print("Subtotal:", transaksi.subtotal)
+            print()
+
+    def lihat_data_transaksi_berdasarkan_subtotal(self):
+        sorted_transactions = sorted(self.transaksi_konsumen, key=lambda t: t.subtotal, reverse=True)
+        print("\n===== DATA TRANSAKSI KONSUMEN BERDASARKAN SUBTOTAL =====")
+        for transaksi in sorted_transactions:
+            print("Nama Konsumen:", transaksi.konsumen)
+            print("No. SKU Barang:", transaksi.sku)
+            print("Jumlah Beli:", transaksi.jumlah_beli)
+            print("Subtotal:", transaksi.subtotal)
+            print()
+
+if __name__ == "__main__":
+    retail_app = RetailApp()
+    retail_app.run()
