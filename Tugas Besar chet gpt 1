@@ -1,0 +1,152 @@
+class Barang:
+    def __init__(self, sku, nama, harga, stok):
+        self.sku = sku
+        self.nama = nama
+        self.harga = harga
+        self.stok = stok
+
+class Transaksi:
+    def __init__(self, konsumen, sku, jumlah_beli, subtotal):
+        self.konsumen = konsumen
+        self.sku = sku
+        self.jumlah_beli = jumlah_beli
+        self.subtotal = subtotal
+
+def menu_utama():
+    while True:
+        print("\n=== MENU UTAMA ===")
+        print("1) Kelola Stok Barang")
+        print("2) Kelola Transaksi Konsumen")
+        print("0) Exit Program")
+
+        pilihan = input("Pilih menu: ")
+
+        if pilihan == "1":
+            menu_kelola_stok()
+        elif pilihan == "2":
+            menu_kelola_transaksi()
+        elif pilihan == "0":
+            break
+        else:
+            print("Pilihan tidak valid!")
+
+def menu_kelola_stok():
+    stok_barang = None
+
+    while True:
+        print("\n=== MENU KELOLA STOK BARANG ===")
+        print("1) Input Data Stok Barang")
+        print("2) Restok Barang")
+        print("0) Kembali ke MENU UTAMA")
+
+        pilihan = input("Pilih menu: ")
+
+        if pilihan == "1":
+            stok_barang = input_data_stok(stok_barang)
+        elif pilihan == "2":
+            restok_barang(stok_barang)
+        elif pilihan == "0":
+            break
+        else:
+            print("Pilihan tidak valid!")
+
+def input_data_stok(stok_barang):
+    if stok_barang is None:
+        stok_barang = {}
+
+    sku = input("No. SKU: ")
+    if sku in stok_barang:
+        print("No. SKU sudah tersimpan di dalam BST.")
+    else:
+        nama = input("Nama Barang: ")
+        harga = float(input("Harga Satuan: "))
+        stok = int(input("Jumlah Stok: "))
+        stok_barang[sku] = Barang(sku, nama, harga, stok)
+        print("Data stok barang berhasil disimpan.")
+
+    return stok_barang
+
+def restok_barang(stok_barang):
+    if not stok_barang:
+        print("Tidak ada data stok barang. Silakan input data stok barang terlebih dahulu.")
+        return
+
+    sku = input("No. SKU barang yang akan diupdate: ")
+    if sku in stok_barang:
+        jumlah_baru = int(input("Jumlah stok baru: "))
+        total_stok = stok_barang[sku].stok + jumlah_baru
+        stok_barang[sku].stok = total_stok
+        print("Stok barang berhasil diupdate.")
+    else:
+        print("No. SKU belum terdaftar. Silakan input data stok barang terlebih dahulu.")
+
+def menu_kelola_transaksi():
+    transaksi_konsumen = []
+
+    while True:
+        print("\n=== MENU KELOLA TRANSAKSI KONSUMEN ===")
+        print("1) Input Data Transaksi Baru")
+        print("2) Lihat Data Seluruh Transaksi Konsumen")
+        print("3) Lihat Data Transaksi Berdasarkan Subtotal")
+        print("0) Kembali ke MENU UTAMA")
+
+        pilihan = input("Pilih menu: ")
+
+        if pilihan == "1":
+            input_data_transaksi(transaksi_konsumen)
+        elif pilihan == "2":
+            lihat_data_transaksi(transaksi_konsumen)
+        elif pilihan == "3":
+            lihat_data_transaksi_berdasarkan_subtotal(transaksi_konsumen)
+        elif pilihan == "0":
+            break
+        else:
+            print("Pilihan tidak valid!")
+
+def input_data_transaksi(transaksi_konsumen):
+    nama_konsumen = input("Nama Konsumen: ")
+    sku = input("No. SKU barang yang dibeli: ")
+
+    if sku not in stok_barang:
+        pilihan = input("No. SKU yang diinputkan belum terdaftar. Apakah ingin melanjutkan transaksi (Y/N)? ")
+        if pilihan.lower() == "n":
+            return
+
+    jumlah_beli = int(input("Jumlah barang yang dibeli: "))
+
+    if stok_barang[sku].stok >= jumlah_beli:
+        stok_barang[sku].stok -= jumlah_beli
+        subtotal = stok_barang[sku].harga * jumlah_beli
+        transaksi_konsumen.append(Transaksi(nama_konsumen, sku, jumlah_beli, subtotal))
+        print("Data transaksi konsumen berhasil diinputkan.")
+
+        pilihan = input("Apakah ingin menambahkan data pembelian untuk konsumen ini (Y/N)? ")
+        if pilihan.lower() == "y":
+            input_data_transaksi(transaksi_konsumen)
+    else:
+        pilihan = input("Jumlah Stok No. SKU yang Anda beli tidak mencukupi. Apakah ingin melanjutkan transaksi (Y/N)? ")
+        if pilihan.lower() == "y":
+            input_data_transaksi(transaksi_konsumen)
+
+def lihat_data_transaksi(transaksi_konsumen):
+    print("\n=== DATA SELURUH TRANSAKSI KONSUMEN ===")
+    for transaksi in transaksi_konsumen:
+        print("Nama Konsumen:", transaksi.konsumen)
+        print("No. SKU barang yang dibeli:", transaksi.sku)
+        print("Jumlah Beli:", transaksi.jumlah_beli)
+        print("Subtotal:", transaksi.subtotal)
+        print()
+
+def lihat_data_transaksi_berdasarkan_subtotal(transaksi_konsumen):
+    sorted_transaksi = sorted(transaksi_konsumen, key=lambda t: t.subtotal, reverse=True)
+
+    print("\n=== DATA TRANSAKSI KONSUMEN BERDASARKAN SUBTOTAL ===")
+    for transaksi in sorted_transaksi:
+        print("Nama Konsumen:", transaksi.konsumen)
+        print("No. SKU barang yang dibeli:", transaksi.sku)
+        print("Jumlah Beli:", transaksi.jumlah_beli)
+        print("Subtotal:", transaksi.subtotal)
+        print()
+
+# Memanggil fungsi menu_utama untuk menjalankan program
+menu_utama()
